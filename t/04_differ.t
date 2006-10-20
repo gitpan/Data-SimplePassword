@@ -1,5 +1,5 @@
 #
-# $Id: 04_differ.t 3 2006-08-04 11:17:18Z ryo $
+# $Id: 04_differ.t 8 2006-10-19 23:59:11Z ryo $
 
 use strict;
 use lib qw(blib);
@@ -9,7 +9,7 @@ use Test::More tests => 1;
 
 my $sp = Data::SimplePassword->new;
 
-my $n = 100;
+my $n = 1000;
 my @result;
 for(1..$n){
     push @result, $sp->make_password( 32 );

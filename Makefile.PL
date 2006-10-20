@@ -1,3 +1,6 @@
+#
+# $Id: Makefile.PL 8 2006-10-19 23:59:11Z ryo $
+
 use 5.00502;
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
@@ -10,7 +13,8 @@ WriteMakefile(
 	Crypt::Random => 0.01,
 	Math::Random::MT => 0.01,
     }, # e.g., Module::Name => 1.1
+    EXE_FILES => [ 'rndpassword' ],
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Data/SimplePassword.pm', # retrieve abstract from module
-       AUTHOR         => 'Okamoto RYO <ryo@aquahill.net>') : ()),
+       AUTHOR         => 'Ryo Okamoto <ryo at aquahill dot net>') : ()),
 );
