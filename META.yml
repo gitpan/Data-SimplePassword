@@ -1,13 +1,31 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Data-SimplePassword
-version:      0.02
-version_from: lib/Data/SimplePassword.pm
-installdirs:  site
+---
+name: Data-SimplePassword
+version: 0.03
+author:
+  - 'Ryo Okamoto <ryo at aquahill dot net>'
+abstract: Simple random password generator
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
 requires:
-    Class::Accessor:               0.01
-    Crypt::Random:                 0.01
-    Math::Random::MT:              0.01
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+  CLASS: 0
+  Class::Accessor: 0
+  Class::Data::Inheritable: 0
+  Crypt::Random: 0
+  Math::Random::MT::Perl: 0
+  UNIVERSAL::require: 0
+build_requires:
+  List::MoreUtils: 0
+  Test::More: 0
+recommends:
+  Math::Random::MT: 0
+provides:
+  Data::SimplePassword:
+    file: lib/Data/SimplePassword.pm
+    version: 0.03
+  Data::SimplePassword::exception:
+    file: lib/Data/SimplePassword.pm
+generated_by: Module::Build version 0.2806
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

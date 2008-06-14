@@ -1,0 +1,10 @@
+# 
+# $URL: svn+ssh://ryo@aquahill.net/home/ryo/svn/Data-SimplePassword/trunk/t/perlcriticrc $
+# $Id: perlcriticrc 12 2008-06-14 09:27:57Z ryo $
+
+# a tiny exception class :<
+[-Modules::RequireFilenameMatchesPackage]
+
+# no strict 'refs'
+#[TestingAndDebugging::ProhibitNoStrict]
+#allow = refs

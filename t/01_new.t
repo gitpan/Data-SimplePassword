@@ -1,15 +1,20 @@
 #
-# $Id: 01_new.t 3 2006-08-04 11:17:18Z ryo $
+# $Id: 01_new.t 13 2008-06-14 10:28:53Z ryo $
 
 use strict;
 use lib qw(blib);
 use Data::SimplePassword;
 
-use Test::More tests => 3;
+use Test::More tests => 4;
 
 BEGIN { use_ok( 'Data::SimplePassword' ) }
 
+ok( Data::SimplePassword->class, "class name" );
+diag( "Using " . Data::SimplePassword->class );
+
+BAIL_OUT("couldn't find any suitable MT classes !!")
+    if Data::SimplePassword->class !~ /^Math::Random::MT/;
+
 can_ok( 'Data::SimplePassword', 'new' );
 ok( Data::SimplePassword->new, "" );
-
 
