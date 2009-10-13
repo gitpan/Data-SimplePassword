@@ -1,5 +1,4 @@
 #
-# $Id: 98_pod-spelling.t 12 2008-06-14 09:27:57Z ryo $
 
 use strict;
 use warnings;
@@ -10,7 +9,7 @@ if( defined $ENV{PERL_TEST_SPELLING} and $ENV{PERL_TEST_SPELLING} ){
     ;
   }
   else{
-    plan skip_all => "couldn't load Tetst::Spelling";
+    plan skip_all => "couldn't load Test::Spelling";
   }
 }
 else{

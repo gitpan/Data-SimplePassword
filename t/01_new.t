@@ -1,5 +1,4 @@
 #
-# $Id: 01_new.t 13 2008-06-14 10:28:53Z ryo $
 
 use strict;
 use lib qw(blib);

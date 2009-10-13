@@ -1,6 +1,4 @@
 # 
-# $URL: svn+ssh://ryo@aquahill.net/home/ryo/svn/Data-SimplePassword/trunk/t/95_perl-critic.t $
-# $Id: 95_perl-critic.t 14 2008-06-14 11:12:50Z ryo $
 
 use strict;
 use Test::More;

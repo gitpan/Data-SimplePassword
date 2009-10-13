@@ -1,5 +1,4 @@
 #
-# $Id: 99_pod-coverage.t 12 2008-06-14 09:27:57Z ryo $
 
 use strict;
 use warnings;

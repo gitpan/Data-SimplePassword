@@ -1,5 +1,5 @@
 #
-# $Id: Build.PL 13 2008-06-14 10:28:53Z ryo $
+# $Id$
 
 use strict;
 use warnings;

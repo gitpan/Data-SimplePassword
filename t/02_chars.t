@@ -1,5 +1,4 @@
 #
-# $Id: 02_chars.t 12 2008-06-14 09:27:57Z ryo $
 
 use strict;
 use lib qw(blib);
