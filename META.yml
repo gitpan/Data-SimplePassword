@@ -1,15 +1,24 @@
 ---
-name: Data-SimplePassword
-version: 0.05
+abstract: 'Simple random password generator'
 author:
   - 'Ryo Okamoto <ryo at aquahill dot net>'
-abstract: Simple random password generator
-license: perl
-resources:
-  license: http://dev.perl.org/licenses/
 build_requires:
   List::MoreUtils: 0
-  Test::More: 0
+  Test::More: 0.88
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3607'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Data-SimplePassword
+provides:
+  Data::SimplePassword:
+    file: lib/Data/SimplePassword.pm
+    version: 0.06
+recommends:
+  Math::Random::MT: 0
 requires:
   CLASS: 0
   Class::Accessor: 0
@@ -17,15 +26,6 @@ requires:
   Crypt::Random: 0
   Math::Random::MT::Perl: 0
   UNIVERSAL::require: 0
-recommends:
-  Math::Random::MT: 0
-configure_requires:
-  Module::Build: 0.35
-provides:
-  Data::SimplePassword:
-    file: lib/Data/SimplePassword.pm
-    version: 0.05
-generated_by: Module::Build version 0.35
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.06

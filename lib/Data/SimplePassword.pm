@@ -11,7 +11,7 @@ use Carp;
 use UNIVERSAL::require;
 use Crypt::Random ();
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 CLASS->mk_classdata( qw(class) );
 CLASS->mk_accessors( qw(seed_num) );
@@ -32,10 +32,27 @@ sub new {
     my %args = (
 	chars => undef,
 	seed_num => 1,    # now internal use only, up to 624
+	provider => '',    # see Crypt::Random::Generator
 	@_
     );
 
     return bless { %args }, $class;
+}
+
+sub provider {
+    my $self = shift;
+    my ($provider) = @_;
+
+    if( defined $provider and $provider ne '' ){
+	# check
+	my $pkg = sprintf "Crypt::Random::Provider::%s", $provider;
+	eval "use $pkg; $pkg->available()"
+	    or croak "RNG provider '$_[0]' is not available.";
+
+	$self->{provider} = $provider;
+    }
+
+    return $self->{provider};
 }
 
 sub chars {
@@ -63,7 +80,9 @@ sub make_password {
 	? @{ $self->chars }
 	: $self->_default_chars;
 
-    my $gen = $self->class->new( map { Crypt::Random::makerandom( Size => 32, Strength => 1 ) } 1 .. $self->seed_num );
+    my $gen = $self->class->new(
+	map { Crypt::Random::makerandom( Size => 32, Strength => 1, Provider => $self->provider ) } 1 .. $self->seed_num
+    );
 
     my $password;
     while( $len-- ){
@@ -113,6 +132,12 @@ YA very easy-to-use but a bit strong random password generator.
 
 Makes a Data::SimplePassword object.
 
+=item B<provider>
+
+ $sp->provider("devurandom");    # optional
+
+Sets a type of radmon number generator, see Crypt::Random::Provider::* for details.
+
 =item B<chars>
 
  $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
@@ -144,13 +169,15 @@ UNIVERSAL::require
 
 Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass, String::MkPasswd, Data::Random::String
 
+http://en.wikipedia.org/wiki//dev/random
+
 =head1 AUTHOR
 
 Ryo Okamoto C<< <ryo at aquahill dot net> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2009 Ryo Okamoto, all rights reserved.
+Copyright 2006-2010 Ryo Okamoto, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
