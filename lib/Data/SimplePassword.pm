@@ -11,7 +11,9 @@ use Carp;
 use UNIVERSAL::require;
 use Crypt::Random ();
 
-$VERSION = '0.07';
+# ABSTRACT: Simple random password generator
+
+$VERSION = '0.08';
 
 CLASS->mk_classdata( qw(class) );
 CLASS->mk_accessors( qw(seed_num) );
@@ -45,14 +47,25 @@ sub provider {
 
     if( defined $provider and $provider ne '' ){
 	# check
-	my $pkg = sprintf "Crypt::Random::Provider::%s", $provider;
-	eval "use $pkg; $pkg->available()"
-	    or croak "RNG provider '$_[0]' is not available.";
+	$self->is_available_provider( $provider )
+	    or croak "RNG provider '$_[0]' is not available on this machine.";
 
 	$self->{provider} = $provider;
     }
 
     return $self->{provider};
+}
+
+sub is_available_provider {
+    my $self = shift;
+    my ($provider) = @_;
+
+    if( defined $provider and $provider ne '' ){
+	my $pkg = sprintf "Crypt::Random::Provider::%s", $provider;
+	return eval "use $pkg; $pkg->available()";
+    }
+
+    return;
 }
 
 sub chars {
@@ -105,6 +118,8 @@ sub make_password {
 
 __END__
 
+=encoding utf-8
+
 =head1 NAME
 
 Data::SimplePassword - Simple random password generator
@@ -132,12 +147,6 @@ YA very easy-to-use but a bit strong random password generator.
 
 Makes a Data::SimplePassword object.
 
-=item B<provider>
-
- $sp->provider("devurandom");    # optional
-
-Sets a type of radmon number generator, see Crypt::Random::Provider::* for details.
-
 =item B<chars>
 
  $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
@@ -156,6 +165,24 @@ Makes password string and just returns it. You can set the byte length as an int
 
 =back
 
+=head1 EXTRA METHODS
+
+=over 4
+
+=item B<provider>
+
+ $sp->provider("devurandom");    # optional
+
+Sets a type of random number generator, see Crypt::Random::Provider::* for details.
+
+=item B<is_available_provider>
+
+ $sp->is_available_provider("devurandom");
+
+Returns true when the type is available.
+
+=back
+
 =head1 COMMAND-LINE TOOL
 
 A useful command named rndpassword(1) will be also installed. Type B<man rndpassword> for details.
@@ -167,18 +194,23 @@ UNIVERSAL::require
 
 =head1 SEE ALSO
 
-Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass, String::MkPasswd, Data::Random::String
+Crypt::GeneratePassword, Crypt::RandPasswd, String::MkPasswd, Data::Random::String
 
 http://en.wikipedia.org/wiki//dev/random
 
+=head1 REPOSITORY
+
+https://github.com/ryochin/p5-data-simplepassword
+
 =head1 AUTHOR
 
-Ryo Okamoto C<< <ryo at aquahill dot net> >>
+Ryo Okamoto E<lt>ryo@aquahill.netE<gt>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2011 Ryo Okamoto, all rights reserved.
+Copyright (c) Ryo Okamoto, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
+=cut
